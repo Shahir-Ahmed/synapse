@@ -1,0 +1,186 @@
+{
+  "users": [
+    {
+      "id": "teacher-1",
+      "name": "Sarah Jenkins, M.Ed.",
+      "email": "sarah.jenkins@clearfeedback.edu",
+      "passwordHash": "scrypt$ZzjKmpekJKc3VJifF7neqA$6bS0jz5OccjDzxNgx10aTkSiimn4MUqQ4AMUQOqLiBU3tlTBPdJnHKc7ALzIW86dLpUcc6QvdhN2UIIhOWc2rw",
+      "role": "teacher"
+    },
+    {
+      "id": "student-1",
+      "name": "Alex Chen",
+      "email": "alex.chen@student.clearfeedback.edu",
+      "passwordHash": "scrypt$8UXjReDoZoPYFCxyTCaLMA$ZilUcPpOeEN8gqk54S531mY5mb7R6iAYbwDQ0YDbgVxmIlBncF4mo-Rhp2URi6MCMase9Ua6s0Mnjz1Ob_etTA",
+      "role": "student",
+      "studentId": "STU-101",
+      "gradeLevel": "Grade 9"
+    },
+    {
+      "id": "student-2",
+      "name": "Maya Patel",
+      "email": "maya.patel@student.clearfeedback.edu",
+      "passwordHash": "scrypt$vjyICG3yHO1NkhJHpE22Aw$EjOEtCfZ3FHry4YkI8AgK0ai1eyTuZoXxiG5GmdqZDb_RDAAjV-KYZWir58RhmqlcN09r5cAg-rOaPNKwuawag",
+      "role": "student",
+      "studentId": "STU-102",
+      "gradeLevel": "Grade 10"
+    },
+    {
+      "id": "student-3",
+      "name": "Liam Johnson",
+      "email": "liam.johnson@student.clearfeedback.edu",
+      "passwordHash": "scrypt$q3ocMTTv8SdGGt1GcZl2iw$wC2Q0MIFeF3oXgDFXiR-YrDsh-bw3YO5meiglEVrt_KqP7RWom1Deydv_cDR9QAhrQoFQxV43-YQcEjCA0YrUQ",
+      "role": "student",
+      "studentId": "STU-103",
+      "gradeLevel": "Grade 9"
+    },
+    {
+      "id": "teacher-1792647211848",
+      "name": "Prof. Elena Rostova",
+      "email": "elena.rostova@synapse.edu",
+      "passwordHash": "scrypt$0EytnN-hmdfCdhFMDXXoOw$moxTJzA9YHfLkla28W9SxceR3OVDYeTq7HaYrs71_z6n5wPax8jwTnaHw2Hy8rNL0uDK2K0VtV8BT7RLJtShIw",
+      "role": "teacher",
+      "schoolName": "Westfield STEM Academy"
+    }
+  ],
+  "students": [
+    {
+      "id": "student-1",
+      "studentId": "STU-101",
+      "name": "Alex Chen",
+      "email": "alex.chen@student.clearfeedback.edu",
+      "gradeLevel": "Grade 9",
+      "createdAt": "2026-09-01T08:00:00.000Z"
+    },
+    {
+      "id": "student-2",
+      "studentId": "STU-102",
+      "name": "Maya Patel",
+      "email": "maya.patel@student.clearfeedback.edu",
+      "gradeLevel": "Grade 10",
+      "createdAt": "2026-09-01T08:00:00.000Z"
+    },
+    {
+      "id": "student-3",
+      "studentId": "STU-103",
+      "name": "Liam Johnson",
+      "email": "liam.johnson@student.clearfeedback.edu",
+      "gradeLevel": "Grade 9",
+      "createdAt": "2026-09-02T08:00:00.000Z"
+    }
+  ],
+  "assessments": [
+    {
+      "id": "asm-101",
+      "studentId": "STU-101",
+      "studentName": "Alex Chen",
+      "teacherId": "teacher-1",
+      "teacherName": "Sarah Jenkins, M.Ed.",
+      "title": "Unit 2: Molecular & Cellular Biology",
+      "date": "2026-10-18",
+      "topics": [
+        {
+          "id": "top-1",
+          "name": "Cellular Respiration",
+          "marksAchieved": 19,
+          "marksMax": 20,
+          "percentage": 95
+        },
+        {
+          "id": "top-2",
+          "name": "Enzyme Kinetics",
+          "marksAchieved": 18,
+          "marksMax": 20,
+          "percentage": 90
+        },
+        {
+          "id": "top-3",
+          "name": "Photosynthesis Stages",
+          "marksAchieved": 17,
+          "marksMax": 20,
+          "percentage": 85
+        },
+        {
+          "id": "top-4",
+          "name": "Membrane Transport & Osmosis",
+          "marksAchieved": 13,
+          "marksMax": 20,
+          "percentage": 65
+        }
+      ],
+      "totalAchieved": 67,
+      "totalMax": 80,
+      "overallPercentage": 83.8,
+      "teacherNotes": "Demonstrated outstanding grasp of energetic pathways and enzyme mechanics. Calculation errors observed on water potential equations.",
+      "feedback": {
+        "strengths": "Outstanding mastery of biochemical metabolic pathways, particularly in Cellular Respiration (95%) and Enzyme Kinetics (90%), with clear, thorough procedural explanations.",
+        "growthAreas": "Membrane Transport & Osmosis (65%) shows difficulty distinguishing between active transport mechanisms and facilitated diffusion when calculating osmotic gradient pressures.",
+        "nextSteps": "Complete the three water potential practice diagrams in Chapter 4, section 3, and annotate whether ATP is required for each transport scenario before Friday’s review session.",
+        "generatedBy": "gemini",
+        "generatedAt": "2026-10-19T14:30:00.000Z"
+      },
+      "status": "published",
+      "createdAt": "2026-10-19T14:00:00.000Z",
+      "updatedAt": "2026-10-22T05:33:38.638Z",
+      "publishedAt": "2026-10-19T14:35:00.000Z",
+      "studentReflection": {
+        "acknowledgedAt": "2026-10-22T05:33:38.638Z",
+        "reflectionNote": "I reviewed Chapter 4.3 and solved the osmotic pressure equation."
+      }
+    },
+    {
+      "id": "asm-102",
+      "studentId": "STU-102",
+      "studentName": "Maya Patel",
+      "teacherId": "teacher-1",
+      "teacherName": "Sarah Jenkins, M.Ed.",
+      "title": "Midterm Examination: Linear Functions & Systems",
+      "date": "2026-10-20",
+      "topics": [
+        {
+          "id": "top-201",
+          "name": "Quadratic Factoring",
+          "marksAchieved": 19,
+          "marksMax": 20,
+          "percentage": 95
+        },
+        {
+          "id": "top-202",
+          "name": "Systems of Equations",
+          "marksAchieved": 16,
+          "marksMax": 20,
+          "percentage": 80
+        },
+        {
+          "id": "top-203",
+          "name": "Word Problem Translation",
+          "marksAchieved": 14,
+          "marksMax": 20,
+          "percentage": 70
+        },
+        {
+          "id": "top-204",
+          "name": "Coordinate Geometry & Slope",
+          "marksAchieved": 11,
+          "marksMax": 20,
+          "percentage": 55
+        }
+      ],
+      "totalAchieved": 60,
+      "totalMax": 80,
+      "overallPercentage": 75,
+      "teacherNotes": "Factoring precision was exceptional. Struggles with graphing negative slope intercepts on the coordinate grid.",
+      "feedback": {
+        "strengths": "Strong fluency in Quadratic Factoring (95%), consistently setting up correct binomial expansions and solving roots without algebraic errors.",
+        "growthAreas": "Coordinate Geometry & Slope (55%) indicates recurring confusion when determining perpendicular slopes and locating negative y-intercepts.",
+        "nextSteps": "Work through the coordinate slope-intercept checklist on Worksheet 5B, verifying the sign of the rise/run fraction on graph paper before plotting the line.",
+        "generatedBy": "gemini",
+        "generatedAt": "2026-10-21T10:15:00.000Z"
+      },
+      "status": "draft",
+      "createdAt": "2026-10-21T10:00:00.000Z",
+      "updatedAt": "2026-10-22T05:20:34.881Z",
+      "publishedAt": "2026-10-22T05:20:28.312Z"
+    }
+  ]
+}

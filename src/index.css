@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #F7F8FA;
+    color: #14243A;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  input, select, textarea, button {
+    font-family: inherit;
+  }
+}
