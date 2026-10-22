@@ -7,7 +7,7 @@ import { hashPassword, isPasswordHash } from './passwords.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DEFAULT_DATA_DIR = path.resolve(__dirname, '../data');
+const DEFAULT_DATA_DIR = process.env.DATA_DIR?.trim() || (process.env.VERCEL ? path.resolve(process.cwd(), 'data') : path.resolve(__dirname, '../data'));
 
 export interface StoreData {
   users: (User & { passwordHash: string })[];

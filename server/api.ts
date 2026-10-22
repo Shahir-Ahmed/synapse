@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { randomBytes } from 'node:crypto';
+import { createHmac, timingSafeEqual } from 'node:crypto';
 import { store } from './store';
 import { verifyPassword } from './passwords';
 import { isRecord, isValidDateOnly, validateAssessmentTopics, validateFeedbackObject } from './assessmentValidation';
@@ -8,8 +8,23 @@ import { calculateGradeLetter, type User, type Assessment, type AssessmentTopic 
 
 export const apiRouter = Router();
 
-// Opaque, in-memory bearer tokens. Tokens are never derived from a user ID.
-const sessions = new Map<string, User>();
+// Signed, stateless bearer tokens work across Vercel serverless invocations.
+// Set SESSION_SECRET to a long random value in Vercel project environment variables.
+type SessionPayload = { sub: string; exp: number };
+const SESSION_TTL_SECONDS = 8 * 60 * 60;
+
+function sessionSecret(): string {
+  const secret = process.env.SESSION_SECRET;
+  if (secret && secret.length >= 32) return secret;
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('SESSION_SECRET must be configured with at least 32 characters in production.');
+  }
+  return 'local-development-only-session-secret-change-me';
+}
+
+function signSessionPayload(encodedPayload: string): string {
+  return createHmac('sha256', sessionSecret()).update(encodedPayload).digest('base64url');
+}
 
 function publicUser(user: User): User {
   return {
@@ -24,10 +39,10 @@ function publicUser(user: User): User {
 }
 
 function createSession(user: User): { token: string; user: User } {
-  const token = randomBytes(32).toString('base64url');
-  const safeUser = publicUser(user);
-  sessions.set(token, safeUser);
-  return { token, user: safeUser };
+  const payload: SessionPayload = { sub: user.id, exp: Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS };
+  const encodedPayload = Buffer.from(JSON.stringify(payload)).toString('base64url');
+  const token = `${encodedPayload}.${signSessionPayload(encodedPayload)}`;
+  return { token, user: publicUser(user) };
 }
 
 function getAuthUser(req: Request): User | null {
@@ -35,7 +50,23 @@ function getAuthUser(req: Request): User | null {
   if (!authHeader) return null;
   const match = authHeader.match(/^Bearer\s+(.+)$/i);
   if (!match) return null;
-  return sessions.get(match[1].trim()) || null;
+
+  try {
+    const token = match[1].trim();
+    const [encodedPayload, suppliedSignature, extra] = token.split('.');
+    if (!encodedPayload || !suppliedSignature || extra !== undefined) return null;
+    const expectedSignature = signSessionPayload(encodedPayload);
+    const supplied = Buffer.from(suppliedSignature, 'base64url');
+    const expected = Buffer.from(expectedSignature, 'base64url');
+    if (supplied.length !== expected.length || !timingSafeEqual(supplied, expected)) return null;
+
+    const payload = JSON.parse(Buffer.from(encodedPayload, 'base64url').toString('utf8')) as Partial<SessionPayload>;
+    if (typeof payload.sub !== 'string' || typeof payload.exp !== 'number' || payload.exp <= Math.floor(Date.now() / 1000)) return null;
+    const user = store.findUserById(payload.sub);
+    return user ? publicUser(user) : null;
+  } catch {
+    return null;
+  }
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -168,9 +199,7 @@ apiRouter.get('/auth/me', (req: Request, res: Response) => {
 });
 
 apiRouter.post('/auth/logout', requireAuth, (req: Request, res: Response) => {
-  const authHeader = req.headers.authorization || '';
-  const token = authHeader.replace(/^Bearer\s+/i, '').trim();
-  sessions.delete(token);
+  // Stateless tokens expire after eight hours; the client drops its token on logout.
   return res.json({ success: true });
 });
 
